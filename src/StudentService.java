@@ -20,17 +20,20 @@ public class StudentService {
         System.out.println("Mark: " + a.getStudentScore());
     }
 
-    private static void checkArrayIsEmpty(Student[] s) {
+    private static boolean checkArrayIsEmpty(Student[] s) {
         if (s == null || s.length == 0) {
             System.out.println("Array is null or empty.");
-            return;
+            return true;
         }
+        return false;
     }
 
     static void printMaleStudents(Student[] students) {
+        if (checkArrayIsEmpty(students)) {
+            return;
+        }
         int count = 0;
         for (Student x : students) {
-            checkArrayIsEmpty(x);
             if (x.getGender() == 'm') {
                 printStudentInfo(x);
                 ++count;
@@ -43,6 +46,9 @@ public class StudentService {
 
     //Task 3: Print all female students who has mark greater then 50.4
     public static void printFemaleStudentsW_HigherMark(Student[] s) {
+        if (checkArrayIsEmpty(s)) {
+            return;
+        }
         int count = 0;
         for (Student x : s) {
             if (x.getGender() == 'f' && x.getStudentScore() > 50.4) {
@@ -58,6 +64,9 @@ public class StudentService {
     //Task 4: Print student information having the minimal mark
     //If there are some of them, this function will return first one.
     public static void printStudentWithMinMark(Student[] s) {
+        if (checkArrayIsEmpty(s)) {
+            return;
+        }
         Student min = s[0];
         for (int i = 1; i < s.length; i++) {
             if (min.getStudentScore() > s[i].getStudentScore()) {
@@ -68,7 +77,10 @@ public class StudentService {
     }
 
     //task5: Print biggest male student information
-    public static void printBiggestMaleStudent(Student[] students) {
+    public static void printEldestMaleStudent(Student[] students) {
+        if (checkArrayIsEmpty(students)) {
+            return;
+        }
         Student biggestMaleStudent = null;
         int count = 0;
         for (Student x : students) {
@@ -81,8 +93,6 @@ public class StudentService {
                 if (biggestMaleStudent.getBirthYear() > x.getBirthYear()) {
                     biggestMaleStudent = x;
                 }
-                printStudentInfo(x);
-                System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^");
             }
         }
         if (count == 0) {
@@ -95,9 +105,12 @@ public class StudentService {
 
     //Task6: Print students sorted by mark
     public static void sortedStudentsByMarksAscending(Student[] s) {
+        if (checkArrayIsEmpty(s)) {
+            return;
+        }
         for (int i = 0; i < s.length; i++) {
             for (int j = 0; j < s.length - 1 - i; j++) {
-                if (s[j].getStudentScore() >= s[j + 1].getStudentScore()) {
+                if (s[j].getStudentScore() > s[j + 1].getStudentScore()) {
                     Student reservedStud = s[j + 1];
                     s[j + 1] = s[j];
                     s[j] = reservedStud;
@@ -111,28 +124,27 @@ public class StudentService {
 
     //Task 7: Print female students sorted by year
     public static void sortedFemaleStudentsByBirthYear(Student[] s) {
-        int count = 0;
+        if (checkArrayIsEmpty(s)) {
+            return;
+        }
         for (int i = 0; i < s.length; i++) {
-            if (s[i].getGender() != 'f') {
-                continue;
-            }
-            ++count;
             for (int j = 0; j < s.length - 1 - i; j++) {
-                if (s[j].getBirthYear() <= s[j + 1].getBirthYear()) {
+                if (s[j].getBirthYear() > s[j + 1].getBirthYear()) {
                     Student reservedStud = s[j];
                     s[j] = s[j + 1];
                     s[j + 1] = reservedStud;
                 }
             }
         }
+        int count = 0;
+        for (Student n : s) {
+            if (n.getGender() == 'f') {
+                ++count;
+                printStudentInfo(n);
+            }
+        }
         if (count == 0) {
             System.out.println("No female students were found.");
-        } else {
-            for (Student n : s) {
-                if (n.getGender() == 'f') {
-                    printStudentInfo(n);
-                }
-            }
         }
     }
 }

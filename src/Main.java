@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        String[] read = FileService.read("/Users/shake/Downloads/text (1).txt");
+        String[] read = FileService.read("text_lib.txt");
         Student student1 = new Student(read[0]);
         Student student2 = new Student(read[1]);
         Student student3 = new Student(read[2]);
@@ -28,7 +28,7 @@ public class Main {
         //task5: Print biggest male student information
         System.out.println("------------------Task5----------------------");
 
-        StudentService.printBiggestMaleStudent(students);
+        StudentService.printEldestMaleStudent(students);
 
         //Task6: Print students sorted by mark
         System.out.println("------------------Task6----------------------");
@@ -39,9 +39,5 @@ public class Main {
         System.out.println("------------------Task7----------------------");
 
         StudentService.sortedFemaleStudentsByBirthYear(students);
-
-
-
     }
-
 }
